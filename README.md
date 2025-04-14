@@ -87,14 +87,13 @@ PEXELS_API_KEY=your_pexels_api_key npx @ai-agents-az/shorts-creator
 
 ```bash
 # Standard run
-docker run -it --rm --name shorts-creator -p 3123:3123 \
+docker run -it --rm --name short-video-maker -p 3123:3123 \
   -e PEXELS_API_KEY=your_pexels_api_key \
-  -v shorts_creator:/app/data gyoridavid/shorts-creator
+  gyoridavid/shorts-creator
 
 # For NVIDIA GPUs, add --gpu=all
-docker run -it --rm --name shorts-creator -p 3123:3123 \
-  -e PEXELS_API_KEY=your_pexels_api_key \
-  -v shorts_creator:/app/data --gpu=all \
+docker run -it --rm --name shorts-video-maker -p 3123:3123 \
+  -e PEXELS_API_KEY=your_pexels_api_key --gpu=all \
   gyoridavid/shorts-creator
 ```
 

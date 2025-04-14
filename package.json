@@ -3,8 +3,8 @@
   "version": "1.0.4",
   "description": "Creates short videos for TikTok, Instagram Reels, and YouTube Shorts using the Model Context Protocol (MCP) and a REST API.",
   "main": "index.js",
-  "bugs": "https://github.com/gyoridavid/shorts-creator/issues",
-  "homepage": "https://github.com/gyoridavid/shorts-creator",
+  "bugs": "https://github.com/gyoridavid/short-video-maker/issues",
+  "homepage": "https://github.com/gyoridavid/short-video-maker",
   "scripts": {
     "build": "rimraf dist && tsc",
     "start": "node dist/index.js",
@@ -31,7 +31,8 @@
     "instagram",
     "video",
     "generator",
-    "remotion"
+    "remotion",
+    "faceless video"
   ],
   "author": "David Gyori",
   "license": "MIT",
