@@ -50,7 +50,7 @@ Shorts Creator takes simple text inputs and search terms, then:
 The easiest way to run the project with GPU support out of the box:
 
 ```bash
-PEXELS_API_KEY=your_pexels_api_key npx @gyoridavid/shorts-creator
+PEXELS_API_KEY=your_pexels_api_key npx @ai-agents-az/shorts-creator
 ```
 
 ### Using Docker

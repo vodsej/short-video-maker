@@ -1,8 +1,10 @@
 {
-  "name": "shorts-creator",
+  "name": "@ai-agents-az/shorts-creator",
   "version": "1.0.0",
-  "description": "",
+  "description": "Creates short videos for TikTok, Instagram Reels, and YouTube Shorts using the Model Context Protocol (MCP) and a REST API.",
   "main": "index.js",
+  "bugs": "https://github.com/gyoridavid/shorts-creator/issues",
+  "homepage": "https://github.com/gyoridavid/shorts-creator",
   "scripts": {
     "build": "rimraf dist && tsc",
     "start": "node dist/index.js",
@@ -15,9 +17,23 @@
     "dist",
     "static"
   ],
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "shorts",
+    "mcp",
+    "model context protocol",
+    "reels",
+    "tiktok",
+    "youtube shorts",
+    "youtube",
+    "short video",
+    "video creation",
+    "instagram",
+    "video",
+    "generator",
+    "remotion"
+  ],
+  "author": "David Gyori",
+  "license": "MIT",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.9.0",
     "@remotion/bundler": "^4.0.286",
