@@ -27,7 +27,7 @@ export const LOG_LEVEL = process.env.LOG_LEVEL ?? "info";
 export const WHISPER_VERBOSE = process.env.WHISPER_VERBOSE === "true";
 
 export const PORT = process.env.PORT ? parseInt(process.env.PORT) : 3123;
-export const NODE_ENV = process.env.NODE_ENV ?? "development";
 export const DOCKER = process.env.DOCKER === "true";
+export const DEV = process.env.DEV === "true";
 
 // todo add check for PEXELS_API_KEY

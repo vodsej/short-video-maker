@@ -7,8 +7,8 @@ import fs from "fs-extra";
 import {
   MUSIC_PATH,
   VIDEOS_DIR_PATH,
-  NODE_ENV,
   PACKAGE_DIR_PATH,
+  DEV,
 } from "../../config";
 import { shortVideoSchema } from "../../components/videos/ShortVideo";
 import { logger } from "../../logger";
@@ -17,10 +17,10 @@ import { logger } from "../../logger";
 const COMPONENT_TO_RENDER = "ShortVideo";
 const RENDER_ENTRY_POINT = path.join(
   PACKAGE_DIR_PATH,
-  NODE_ENV === "production" ? "dist" : "src",
+  DEV ? "src" : "dist",
   "components",
   "root",
-  `index.${NODE_ENV === "production" ? "js" : "ts"}`,
+  `index.${DEV ? "ts" : "js"}`,
 );
 
 export class Remotion {

@@ -3,6 +3,14 @@ import { Readable } from "node:stream";
 import { logger } from "../../logger";
 
 export class FFMpeg {
+  static async init(): Promise<FFMpeg> {
+    return import("@ffmpeg-installer/ffmpeg").then((ffmpegInstaller) => {
+      ffmpeg.setFfmpegPath(ffmpegInstaller.path);
+      logger.info("FFmpeg path set to:", ffmpegInstaller.path);
+      return new FFMpeg();
+    });
+  }
+
   async normalizeAudioForWhisper(
     audio: ArrayBuffer,
     outputPath: string,

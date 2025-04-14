@@ -1,6 +1,6 @@
 {
-  "name": "short-video-creator",
-  "version": "1.0.0",
+  "name": "short-video-maker",
+  "version": "1.0.4",
   "description": "Creates short videos for TikTok, Instagram Reels, and YouTube Shorts using the Model Context Protocol (MCP) and a REST API.",
   "main": "index.js",
   "bugs": "https://github.com/gyoridavid/shorts-creator/issues",
@@ -8,10 +8,11 @@
   "scripts": {
     "build": "rimraf dist && tsc",
     "start": "node dist/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublishOnly": "npm run build && echo \"#!/usr/bin/env node\n$(cat dist/index.js)\" > dist/index.js && chmod +x dist/index.js"
   },
   "bin": {
-    "shorts-creator": "dist/index.js"
+    "shorts-video-maker": "dist/index.js"
   },
   "files": [
     "dist",
@@ -35,6 +36,7 @@
   "author": "David Gyori",
   "license": "MIT",
   "dependencies": {
+    "@ffmpeg-installer/ffmpeg": "^1.1.0",
     "@modelcontextprotocol/sdk": "^1.9.0",
     "@remotion/bundler": "^4.0.286",
     "@remotion/cli": "^4.0.286",

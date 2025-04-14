@@ -16,7 +16,8 @@ async function main() {
   const kokoro = await Kokoro.init();
   logger.debug("initializing whisper");
   const whisper = await Whisper.init();
-  const ffmpeg = new FFMpeg();
+  logger.debug("initializing ffmpeg");
+  const ffmpeg = await FFMpeg.init();
   const pexelsApi = new PexelsAPI(PEXELS_API_KEY);
 
   logger.debug("initializing the short creator");

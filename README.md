@@ -1,6 +1,6 @@
-# Shorts Video Creator
+# Shorts Video Maker
 
-An open source automated video creation tool for generating short-form video content. Shorts Video Creator combines text-to-speech, automatic captions, background videos, and music to create engaging short videos from simple text inputs.
+An open source automated video creation tool for generating short-form video content. Short Video Maker combines text-to-speech, automatic captions, background videos, and music to create engaging short videos from simple text inputs.
 
 This repository was open-sourced by the [AI Agents A-Z Youtube Channel](https://www.youtube.com/channel/UCloXqLhp_KGhHBe1kwaL2Tg). We encourage you to check out the channel for more AI-related content and tutorials.
 
@@ -15,16 +15,16 @@ This repository was open-sourced by the [AI Agents A-Z Youtube Channel](https://
 
 ```json
 {
-    "scenes": [
-      {
-        "text": "Hello world! Enjoy using this tool to create awesome AI workflows",
-        "searchTerm": "rainbow"
-      }
-    ],
-    "config": {
-      "paddingBack": 1500,
-      "music": "cinematic"
+  "scenes": [
+    {
+      "text": "Hello world! Enjoy using this tool to create awesome AI workflows",
+      "searchTerm": "rainbow"
     }
+  ],
+  "config": {
+    "paddingBack": 1500,
+    "music": "cinematic"
+  }
 }
 ```
 
