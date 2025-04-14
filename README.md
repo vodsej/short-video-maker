@@ -6,10 +6,15 @@ This repository was open-source by the [AI Agents A-Z Youtube Channel](https://w
 
 ## Example
 
-```
-curl --location 'localhost:3123/api/short-video' \
---header 'Content-Type: application/json' \
---data '{
+<table>
+  <tr>
+    <td>
+    <video src="https://github.com/user-attachments/assets/bb7ce80f-e6e1-44e5-ba4e-9b13d917f55b" width="270" height="480"></video>
+    </td>
+<td>
+    
+```json
+{
     "scenes": [
       {
         "text": "Hello world! Enjoy using this tool to create awesome AI workflows",
@@ -20,10 +25,12 @@ curl --location 'localhost:3123/api/short-video' \
       "paddingBack": 1500,
       "music": "cinematic"
     }
-}'
+}
 ```
 
-<video src="examples/hello_world.mp4" width="270" height="480"></video>
+</td>
+  </tr>
+</table>
 
 ## Features
 
