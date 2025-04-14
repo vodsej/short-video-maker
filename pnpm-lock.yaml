@@ -29,9 +29,6 @@ importers:
       '@remotion/zod-types':
         specifier: ^4.0.286
         version: 4.0.286(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(zod@3.24.2)
-      config:
-        specifier: link:@remotion/cli/config
-        version: link:@remotion/cli/config
       content-type:
         specifier: ^1.0.5
         version: 1.0.5

@@ -2,6 +2,10 @@
 
 This directory contains background music tracks for use in the shorts creator project. All music files are sourced from [Pixabay](https://pixabay.com/music/) and are free to use under their license.
 
+## Example
+
+<video src="examples/hello_world.mp4" width="270" height="480"></video>
+
 ## Available Music Tracks
 
 | File                                                                                                                                                   | Duration | Start Time | Tags                                 |

@@ -1,5 +1,5 @@
 {
-  "name": "@ai-agents-az/shorts-creator",
+  "name": "short-video-creator",
   "version": "1.0.0",
   "description": "Creates short videos for TikTok, Instagram Reels, and YouTube Shorts using the Model Context Protocol (MCP) and a REST API.",
   "main": "index.js",
@@ -42,7 +42,6 @@
     "@remotion/install-whisper-cpp": "^4.0.286",
     "@remotion/renderer": "^4.0.286",
     "@remotion/zod-types": "^4.0.286",
-    "config": "link:@remotion/cli/config",
     "content-type": "^1.0.5",
     "cuid": "^3.0.0",
     "dotenv": "^16.4.7",
