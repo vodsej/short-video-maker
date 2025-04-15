@@ -1,6 +1,10 @@
 import z from "zod";
 import { bundle } from "@remotion/bundler";
-import { renderMedia, selectComposition } from "@remotion/renderer";
+import {
+  renderMedia,
+  selectComposition,
+  RenderMediaOnProgress,
+} from "@remotion/renderer";
 import path from "path";
 import fs from "fs-extra";
 
@@ -50,6 +54,11 @@ export class Remotion {
     );
 
     const outputLocation = path.join(VIDEOS_DIR_PATH, `${id}.mp4`);
+
+    const onProgress: RenderMediaOnProgress = ({ progress }) => {
+      logger.info(`Rendering is ${progress * 100}% complete`);
+    };
+
     await renderMedia({
       codec: "h264",
       composition,
@@ -59,6 +68,7 @@ export class Remotion {
         enableMultiProcessOnLinux: true,
       },
       inputProps: data,
+      onProgress,
     });
 
     logger.debug(

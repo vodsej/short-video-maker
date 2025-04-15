@@ -10,6 +10,7 @@ import { logger } from "./logger";
 import { Server } from "./server/server";
 
 async function main() {
+  // todo ensure chrome
   logger.debug("initializing remotion");
   const remotion = await Remotion.init();
   logger.debug("initializing kokoro");

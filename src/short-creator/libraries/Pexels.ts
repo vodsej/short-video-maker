@@ -21,10 +21,16 @@ export class PexelsAPI {
         headers,
         redirect: "follow",
       },
-    ).then((res) => res.json());
+    )
+      .then((res) => res.json())
+      .catch((err) => {
+        logger.error(err, "Error fetching videos from Pexels API");
+        throw err;
+      });
     const videos = response.videos;
 
     if (!videos || videos.length === 0) {
+      logger.error({ searchTerm }, "No videos found in Pexels API");
       throw new Error("No videos found");
     }
 
@@ -67,6 +73,6 @@ export class PexelsAPI {
         }
       }
     }
-    throw new Error("Not found");
+    throw new Error("Not videos found");
   }
 }
