@@ -2,7 +2,8 @@
 import { logger } from "../../logger";
 import type { Video } from "../../types/shorts";
 
-const JOLLY_JOKER_TERMS: string[] = ["nature", "globe", "space", "ocean"];
+const jokerTerms: string[] = ["nature", "globe", "space", "ocean"];
+const durationBufferSeconds = 3;
 
 export class PexelsAPI {
   constructor(private API_KEY: string) {}
@@ -30,53 +31,64 @@ export class PexelsAPI {
         logger.error(err, "Error fetching videos from Pexels API");
         throw err;
       });
-    const videos = response.videos;
+    const videos = response.videos as {
+      id: string;
+      duration: number;
+      video_files: {
+        fps: number;
+        quality: string;
+        width: number;
+        height: number;
+        id: string;
+        link: string;
+      }[];
+    }[];
 
     if (!videos || videos.length === 0) {
       logger.error({ searchTerm }, "No videos found in Pexels API");
       throw new Error("No videos found");
     }
 
-    logger.debug({ length: videos.length, term: searchTerm }, "Videos found");
-    for (const video of videos) {
-      if (excludeIds.includes(video.id)) {
-        continue;
-      }
-      if (!video.video_files.length) {
-        continue;
-      }
+    // find all the videos that fits the criteria, then select one randomly
+    const filteredVideos = videos
+      .map((video) => {
+        if (excludeIds.includes(video.id)) {
+          return;
+        }
+        if (!video.video_files.length) {
+          return;
+        }
 
-      // calculate the real duration of the video by converting the FPS to 25
-      const fps = video.video_files[0].fps;
-      const duration = video.duration * (fps / 25);
+        // calculate the real duration of the video by converting the FPS to 25
+        const fps = video.video_files[0].fps;
+        const duration = video.duration * (fps / 25);
 
-      if (duration >= minDurationSeconds) {
-        for (const file of video.video_files) {
-          if (
-            file.quality === "hd" &&
-            file.width === 1080 &&
-            file.height === 1920
-          ) {
-            logger.debug(
-              {
-                videoId: video.id,
-                fileId: file.id,
+        if (duration >= minDurationSeconds + durationBufferSeconds) {
+          for (const file of video.video_files) {
+            if (
+              file.quality === "hd" &&
+              file.width === 1080 &&
+              file.height === 1920
+            ) {
+              return {
+                id: video.id,
+                url: file.link,
                 width: file.width,
                 height: file.height,
-              },
-              "Video with the right proportions found",
-            );
-            return {
-              id: video.id,
-              url: file.link,
-              width: file.width,
-              height: file.height,
-            };
+              };
+            }
           }
         }
-      }
+      })
+      .filter(Boolean);
+    if (!filteredVideos.length) {
+      logger.error({ searchTerm }, "No videos found in Pexels API");
+      throw new Error("No videos found");
     }
-    throw new Error("Not videos found");
+
+    return filteredVideos[
+      Math.floor(Math.random() * filteredVideos.length)
+    ] as Video;
   }
 
   async findVideo(
@@ -85,9 +97,7 @@ export class PexelsAPI {
     excludeIds: string[],
   ): Promise<Video> {
     // shuffle the search terms to randomize the search order
-    const shuffledJollyJokerTerms = JOLLY_JOKER_TERMS.sort(
-      () => Math.random() - 0.5,
-    );
+    const shuffledJollyJokerTerms = jokerTerms.sort(() => Math.random() - 0.5);
     const shuffledSearchTerms = searchTerms.sort(() => Math.random() - 0.5);
 
     for (const searchTerm of [

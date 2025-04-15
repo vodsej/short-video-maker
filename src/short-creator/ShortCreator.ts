@@ -11,7 +11,7 @@ import { PexelsAPI } from "./libraries/Pexels";
 import { VIDEOS_DIR_PATH, TEMP_DIR_PATH } from "../config";
 import { logger } from "../logger";
 import { musicConfig } from "./music";
-import { MusicTagsEnum, type Music, type MusicTag } from "../types/shorts";
+import { type Music, type MusicTag } from "../types/shorts";
 import type {
   SceneInput,
   RenderConfig,

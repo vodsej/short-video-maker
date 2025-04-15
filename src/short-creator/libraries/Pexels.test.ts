@@ -15,6 +15,7 @@ test("test pexels", async () => {
     .get(/videos\/search/)
     .reply(200, mockResponse);
   const pexels = new PexelsAPI("asdf");
-  const video = await pexels.findVideo("dog", 2.4, []);
+  const video = await pexels.findVideo(["dog"], 2.4, []);
+  console.log(video);
   assert.isObject(video, "Video should be an object");
 });
