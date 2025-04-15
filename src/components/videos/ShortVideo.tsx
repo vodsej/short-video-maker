@@ -32,6 +32,7 @@ export const shortVideoSchema = z.object({
     file: z.string(),
     duration: z.number(),
     start: z.number(),
+    end: z.number(),
   }),
 });
 
@@ -147,8 +148,10 @@ export const ShortVideo: React.FC<z.infer<typeof shortVideoSchema>> = ({
   return (
     <AbsoluteFill style={{ backgroundColor: "white" }}>
       <Audio
+        loop
         src={staticFile(music.file)}
         startFrom={music.start * fps}
+        endAt={music.end * fps}
         volume={0.1}
       />
 

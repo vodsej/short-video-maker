@@ -5,7 +5,7 @@ import z from "zod";
 
 import { ShortCreator } from "../../short-creator/ShortCreator";
 import { logger } from "../../logger";
-import { MusicTagsEnum } from "../../types/shorts";
+import { renderConfig, sceneInput } from "../../types/shorts";
 
 export class MCPRouter {
   router: express.Router;
@@ -53,27 +53,8 @@ export class MCPRouter {
       "create-short-video",
       "Create a short video from a list of scenes",
       {
-        scenes: z.array(
-          z
-            .object({
-              text: z.string().describe("Text to be spoken in the video"),
-              searchTerm: z
-                .array(z.string())
-                .describe(
-                  "Search term to find a background video - should be simple, max 2 words. At least 2-3 search terms should be provided for each scene.",
-                ),
-            })
-            .describe("Definition for each scene"),
-        ),
-        config: z.object({
-          paddingBack: z
-            .number()
-            .describe(
-              "For how long (milliseconds) to keep playing the video after the audio ends",
-            )
-            .optional(),
-          music: z.nativeEnum(MusicTagsEnum).describe("Music tag to be used"),
-        }),
+        scenes: z.array(sceneInput).describe("Each scene to be created"),
+        config: renderConfig.describe("Configuration for rendering the video"),
       },
       async ({ scenes, config }) => {
         const videoId = await this.shortCreator.addToQueue(scenes, config);

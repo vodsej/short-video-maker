@@ -11,12 +11,14 @@ import { PexelsAPI } from "./libraries/Pexels";
 import { VIDEOS_DIR_PATH, TEMP_DIR_PATH } from "../config";
 import { logger } from "../logger";
 import { musicConfig } from "./music";
-import { type Music, type MusicTag } from "../types/shorts";
+import { type Music } from "../types/shorts";
 import type {
   SceneInput,
   RenderConfig,
   Scene,
   VideoStatus,
+  MusicMoodEnum,
+  MusicTag,
 } from "../types/shorts";
 
 export class ShortCreator {
@@ -128,9 +130,12 @@ export class ShortCreator {
       totalDuration += config.paddingBack / 1000;
     }
 
+    const selectedMusic = this.findMusic(totalDuration, config.music);
+    logger.debug({ selectedMusic }, "Selected music for the video");
+
     await this.remotion.render(
       {
-        music: this.findMusic(totalDuration),
+        music: selectedMusic,
         scenes,
         config: {
           durationMs: totalDuration * 1000,
@@ -161,12 +166,12 @@ export class ShortCreator {
     return fs.readFileSync(videoPath);
   }
 
-  private findMusic(videoDuration: number, tag?: MusicTag): Music {
+  private findMusic(videoDuration: number, tag?: MusicMoodEnum): Music {
     const musicFiles = musicConfig.filter((music) => {
       if (tag) {
-        return music.tags.includes(tag) && music.realDuration >= videoDuration;
+        return music.mood === tag;
       }
-      return music.realDuration > videoDuration;
+      return true;
     });
     return musicFiles[Math.floor(Math.random() * musicFiles.length)];
   }
@@ -174,9 +179,7 @@ export class ShortCreator {
   public static ListAvailableMusicTags(): MusicTag[] {
     const tags = new Set<MusicTag>();
     musicConfig.forEach((music) => {
-      music.tags.forEach((tag) => {
-        tags.add(tag);
-      });
+      tags.add(music.mood as MusicTag);
     });
     return Array.from(tags.values());
   }

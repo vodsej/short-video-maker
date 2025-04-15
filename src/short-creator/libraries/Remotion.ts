@@ -55,9 +55,16 @@ export class Remotion {
 
     const outputLocation = path.join(VIDEOS_DIR_PATH, `${id}.mp4`);
 
-    const onProgress: RenderMediaOnProgress = ({ progress }) => {
-      logger.info(`Rendering is ${progress * 100}% complete`);
-    };
+    const onProgress = (() => {
+      let progress = 0;
+      return ({ progress: newProgress }: { progress: number }) => {
+        newProgress = Math.floor(newProgress * 100);
+        if (newProgress > progress) {
+          logger.debug(`Rendering ${id} ${newProgress}% complete`);
+          progress = newProgress;
+        }
+      };
+    })();
 
     await renderMedia({
       codec: "h264",

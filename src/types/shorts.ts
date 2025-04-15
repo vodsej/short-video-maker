@@ -1,24 +1,18 @@
 import z from "zod";
 
-export enum MusicTagsEnum {
-  cinematic = "cinematic",
-  classical = "classical",
-  pensive = "pensive",
-  piano = "piano",
-  dramatic = "dramatic",
+export enum MusicMoodEnum {
+  sad = "sad",
+  melancholic = "melancholic",
+  happy = "happy",
+  euphoric = "euphoric/high",
+  excited = "excited",
   chill = "chill",
-  lofi = "lo-fi",
-  chillhop = "chillhop",
-  energetic = "energetic",
-  hiphop = "hip-hop",
-  jazz = "jazz",
-  smoothjazz = "smooth jazz",
-  relaxing = "relaxing",
-  softguitar = "soft guitar",
-  corporate = "corporate",
-  upbeat = "upbeat",
-  inspiring = "inspiring",
-  synthpop = "synth pop",
+  uneasy = "uneasy",
+  angry = "angry",
+  dark = "dark",
+  hopeful = "hopeful",
+  contemplative = "contemplative",
+  funny = "funny/quirky",
 }
 
 export type Scene = {
@@ -48,7 +42,7 @@ export const renderConfig = z.object({
       "For how long the video should be playing after the speech is done, in milliseconds",
     ),
   music: z
-    .nativeEnum(MusicTagsEnum)
+    .nativeEnum(MusicMoodEnum)
     .optional()
     .describe("Music tag to be used to find the right music for the video"),
 });
@@ -114,12 +108,12 @@ export type VideoStatus = "processing" | "ready" | "failed";
 
 export type MusicConfig = {
   file: string;
-  duration: number;
   start: number;
-  tags: MusicTag[];
+  end: number;
+  mood: string;
 };
 export type Music = MusicConfig & {
-  realDuration: number;
+  duration: number;
 };
 
-export type MusicTag = `${MusicTagsEnum}`;
+export type MusicTag = `${MusicMoodEnum}`;
