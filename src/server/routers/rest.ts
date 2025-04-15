@@ -38,9 +38,26 @@ export class APIRouter {
           });
         } catch (err: unknown) {
           logger.error(err, "Error validating input");
-          // todo handle other errors
+
+          // Handle validation errors specifically
+          if (err instanceof Error && err.message.startsWith("{")) {
+            try {
+              const errorData = JSON.parse(err.message);
+              res.status(400).json({
+                error: "Validation failed",
+                message: errorData.message,
+                missingFields: errorData.missingFields,
+              });
+              return;
+            } catch (parseError) {
+              logger.error(parseError, "Error parsing validation error");
+            }
+          }
+
+          // Fallback for other errors
           res.status(400).json({
             error: "Invalid input",
+            message: err instanceof Error ? err.message : "Unknown error",
           });
         }
       },
