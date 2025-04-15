@@ -109,7 +109,7 @@ export class ShortCreator {
 
       const audioDataUri = await this.ffmpeg.createMp3DataUri(audioStream);
       const video = await this.pexelsApi.findVideo(
-        scene.searchTerm,
+        scene.searchTerms,
         audioLength,
         excludeVideoIds,
       );

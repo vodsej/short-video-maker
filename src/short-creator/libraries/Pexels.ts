@@ -97,13 +97,10 @@ export class PexelsAPI {
     excludeIds: string[],
   ): Promise<Video> {
     // shuffle the search terms to randomize the search order
-    const shuffledJollyJokerTerms = jokerTerms.sort(() => Math.random() - 0.5);
+    const shuffledJokerTerms = jokerTerms.sort(() => Math.random() - 0.5);
     const shuffledSearchTerms = searchTerms.sort(() => Math.random() - 0.5);
 
-    for (const searchTerm of [
-      ...shuffledSearchTerms,
-      ...shuffledJollyJokerTerms,
-    ]) {
+    for (const searchTerm of [...shuffledSearchTerms, ...shuffledJokerTerms]) {
       try {
         return await this._findVideo(
           searchTerm,

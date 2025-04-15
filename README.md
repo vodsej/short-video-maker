@@ -18,12 +18,12 @@ This repository was open-sourced by the [AI Agents A-Z Youtube Channel](https://
   "scenes": [
     {
       "text": "Hello world! Enjoy using this tool to create awesome AI workflows",
-      "searchTerm": "rainbow"
+      "searchTerms": ["rainbow"]
     }
   ],
   "config": {
     "paddingBack": 1500,
-    "music": "cinematic"
+    "music": "happy"
   }
 }
 ```
@@ -114,7 +114,7 @@ The following REST endpoints are available:
      "scenes": [
        {
          "text": "This is the text to be spoken in the video",
-         "searchTerm": "nature sunset"
+         "searchTerms": ["nature sunset"]
        }
      ],
      "config": {

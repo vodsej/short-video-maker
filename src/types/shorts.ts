@@ -26,7 +26,7 @@ export type Scene = {
 
 export const sceneInput = z.object({
   text: z.string().describe("Text to be spoken in the video"),
-  searchTerm: z
+  searchTerms: z
     .array(z.string())
     .describe(
       "Search term for video, max 2 words, at least 2-3 search terms should be provided for each scene",
