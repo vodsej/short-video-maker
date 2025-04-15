@@ -58,9 +58,9 @@ export class MCPRouter {
             .object({
               text: z.string().describe("Text to be spoken in the video"),
               searchTerm: z
-                .string()
+                .array(z.string())
                 .describe(
-                  "Search term to find a background video - should be simple, max 2 words",
+                  "Search term to find a background video - should be simple, max 2 words. At least 2-3 search terms should be provided for each scene.",
                 ),
             })
             .describe("Definition for each scene"),

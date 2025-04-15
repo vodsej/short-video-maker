@@ -1,10 +1,13 @@
+/* eslint-disable @remotion/deterministic-randomness */
 import { logger } from "../../logger";
 import type { Video } from "../../types/shorts";
+
+const JOLLY_JOKER_TERMS: string[] = ["nature", "globe", "space", "ocean"];
 
 export class PexelsAPI {
   constructor(private API_KEY: string) {}
 
-  async findVideo(
+  private async _findVideo(
     searchTerm: string,
     minDurationSeconds: number,
     excludeIds: string[],
@@ -74,5 +77,40 @@ export class PexelsAPI {
       }
     }
     throw new Error("Not videos found");
+  }
+
+  async findVideo(
+    searchTerms: string[],
+    minDurationSeconds: number,
+    excludeIds: string[],
+  ): Promise<Video> {
+    // shuffle the search terms to randomize the search order
+    const shuffledJollyJokerTerms = JOLLY_JOKER_TERMS.sort(
+      () => Math.random() - 0.5,
+    );
+    const shuffledSearchTerms = searchTerms.sort(() => Math.random() - 0.5);
+
+    for (const searchTerm of [
+      ...shuffledSearchTerms,
+      ...shuffledJollyJokerTerms,
+    ]) {
+      try {
+        return await this._findVideo(
+          searchTerm,
+          minDurationSeconds,
+          excludeIds,
+        );
+      } catch (e) {
+        logger.error(
+          { error: e, term: searchTerm },
+          "Error finding video in Pexels API for term",
+        );
+      }
+    }
+    logger.error(
+      { searchTerms },
+      "No videos found in Pexels API for the given terms",
+    );
+    throw new Error("No videos found in Pexels API");
   }
 }
