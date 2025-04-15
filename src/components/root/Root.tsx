@@ -26,9 +26,9 @@ export const RemotionRoot: React.FC = () => {
         height={1920}
         defaultProps={{
           music: {
-            file: "experimental-cinematic-hip-hop-315904.mp3",
-            duration: 140,
-            start: 16,
+            file: "mellow-fellow-in-the-bellow-peaceful-lofi-instrumental-262780.mp3",
+            start: 0,
+            end: 137,
           },
           scenes: [
             {

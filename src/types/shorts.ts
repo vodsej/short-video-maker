@@ -106,14 +106,11 @@ export type CreateShortInput = z.infer<typeof createShortInput>;
 
 export type VideoStatus = "processing" | "ready" | "failed";
 
-export type MusicConfig = {
+export type Music = {
   file: string;
   start: number;
   end: number;
   mood: string;
-};
-export type Music = MusicConfig & {
-  duration: number;
 };
 
 export type MusicTag = `${MusicMoodEnum}`;

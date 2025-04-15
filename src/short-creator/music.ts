@@ -1,9 +1,9 @@
 import path from "path";
-import { type MusicConfig, type Music, MusicMoodEnum } from "../types/shorts";
+import { type Music, MusicMoodEnum } from "../types/shorts";
 import fs from "fs-extra";
 import { MUSIC_PATH } from "../config";
 
-const musicList: MusicConfig[] = [
+const musicList: Music[] = [
   {
     file: "sad-violin-150146.mp3",
     start: 0,
@@ -252,7 +252,7 @@ const musicList: MusicConfig[] = [
   },
 ];
 
-export const musicConfig: Music[] = musicList.map((music: MusicConfig) => {
+export const musicConfig: Music[] = musicList.map((music: Music) => {
   if (!fs.existsSync(path.join(MUSIC_PATH, music.file))) {
     throw new Error(`Music file not found: ${music.file}`);
   }
