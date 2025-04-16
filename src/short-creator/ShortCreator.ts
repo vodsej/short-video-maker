@@ -39,12 +39,11 @@ export class ShortCreator {
 
   public status(id: string): VideoStatus {
     const videoPath = ShortCreator.getVideoPath(id);
-    logger.debug({ videoPath }, "Checking video status");
-    if (fs.existsSync(videoPath)) {
-      return "ready";
-    }
     if (this.queue.find((item) => item.id === id)) {
       return "processing";
+    }
+    if (fs.existsSync(videoPath)) {
+      return "ready";
     }
     return "failed";
   }

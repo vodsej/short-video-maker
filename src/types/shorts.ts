@@ -29,7 +29,7 @@ export const sceneInput = z.object({
   searchTerms: z
     .array(z.string())
     .describe(
-      "Search term for video, max 2 words, at least 2-3 search terms should be provided for each scene",
+      "Search term for video, 1 word, and at least 2-3 search terms should be provided for each scene. Make sure to match the overall context with the word - regardless what the video search result would be.",
     ),
 });
 export type SceneInput = z.infer<typeof sceneInput>;
