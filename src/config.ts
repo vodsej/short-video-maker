@@ -3,7 +3,6 @@ import "dotenv/config";
 import os from "os";
 import fs from "fs-extra";
 
-// paths
 export const DATA_DIR_PATH =
   process.env.DATA_DIR_PATH ??
   path.join(os.homedir(), ".ai-agents-az-video-generator");
@@ -30,4 +29,9 @@ export const PORT = process.env.PORT ? parseInt(process.env.PORT) : 3123;
 export const DOCKER = process.env.DOCKER === "true";
 export const DEV = process.env.DEV === "true";
 
-// todo add check for PEXELS_API_KEY
+if (!PEXELS_API_KEY) {
+  console.log(
+    "No PEXELS_API_KEY found. Please set it in your environment variables. https://www.pexels.com/api/key/",
+  );
+  process.exit(1);
+}

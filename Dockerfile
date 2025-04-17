@@ -19,8 +19,6 @@ RUN sh ./download-ggml-model.sh medium.en
 FROM node:22-bookworm-slim AS base
 ENV DEBIAN_FRONTEND=noninteractive
 WORKDIR /app
-ENV HOME_PATH=/app
-ENV NODE_ENV=production
 RUN apt update
 RUN apt install -y \
       # whisper dependencies
@@ -75,9 +73,8 @@ COPY package.json /app/
 # install kokoro, headless chrome
 RUN node dist/scripts/install.js
 
-# app configuration
+# app configuration via environment variables
 ENV DATA_DIR_PATH=/app/data
 ENV DOCKER=true
 
 CMD ["pnpm", "start"]
-# # CMD ["sh", "-c", "while true; do sleep 1000; done"]

@@ -1,44 +1,30 @@
+# Contributing to Shorts Creator
+
+## How to setup the development environment
+
 1. Clone the repository
 
    ```bash
-   git clone https://github.com/yourusername/shorts-creator.git
-   cd shorts-creator
+   git clone git@github.com:gyoridavid/short-video-maker.git
+   cd shorts-video-maker
    ```
 
 2. Install dependencies
 
    ```bash
-   npm install
-   # or with pnpm
    pnpm install
    ```
 
-3. Create a `.env` file with your configuration
+3. Copy `.env.example` to `.env` and set the right environment variables.
 
-   ```
-   PORT=3123
-   PEXELS_API_KEY=your_pexels_api_key
-   NODE_ENV=development
-   ```
-
-4. Build the project
-
+4. Start the server
    ```bash
-   npm run build
-   # or with pnpm
-   pnpm build
+   pnpm dev
    ```
 
-5. Start the server
-   ```bash
-   npm start
-   # or with pnpm
-   pnpm start
-   ```
+## How to preview the videos and debug the rendering process
 
-### Preview videos during development
-
-You can use Remotion Studio to preview videos:
+You can use Remotion Studio to preview videos. Make sure to update the template if the underlying data structure changes.
 
 ```bash
 npx remotion studio

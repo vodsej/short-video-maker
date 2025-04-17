@@ -4,6 +4,39 @@ An open source automated video creation tool for generating short-form video con
 
 This repository was open-sourced by the [AI Agents A-Z Youtube Channel](https://www.youtube.com/channel/UCloXqLhp_KGhHBe1kwaL2Tg). We encourage you to check out the channel for more AI-related content and tutorials.
 
+## Running the Project
+
+### Using NPX (recommended)
+
+The easiest way to run the project with GPU support out of the box:
+
+```bash
+PEXELS_API_KEY= npx @ai-agents-az/shorts-creator
+```
+
+### Using Docker
+
+```bash
+# Standard run
+docker run -it --rm --name short-video-maker -p 3123:3123 \
+  -e PEXELS_API_KEY=your_pexels_api_key \
+  gyoridavid/shorts-creator
+
+# For NVIDIA GPUs, add --gpu=all
+docker run -it --rm --name shorts-video-maker -p 3123:3123 \
+  -e PEXELS_API_KEY= --gpu=all \
+  gyoridavid/shorts-creator
+```
+
+## Environment Variables
+
+| Variable        | Description                                                                        |
+| --------------- | ---------------------------------------------------------------------------------- |
+| PEXELS_API_KEY  | Your Pexels API key for background video sourcing                                  |
+| PORT            | Port for the API/MCP server (default: 3123)                                        |
+| LOG_LEVEL       | Log level for the server (default: info, options: trace, debug, info, warn, error) |
+| WHISPER_VERBOSE | Verbose mode for Whisper (default: false)                                          |
+
 ## Example
 
 <table>
@@ -35,7 +68,7 @@ This repository was open-sourced by the [AI Agents A-Z Youtube Channel](https://
 ## Features
 
 - Generate complete short videos from text prompts
-- Text-to-speech conversion with multiple voice options
+- Text-to-speech conversion
 - Automatic caption generation and styling
 - Background video search and selection via Pexels
 - Background music with genre/mood selection
@@ -51,54 +84,19 @@ Shorts Creator takes simple text inputs and search terms, then:
 4. Composes all elements with Remotion
 5. Renders a professional-looking short video with perfectly timed captions
 
-## Dependencies
+## Dependencies for the video generation
 
-| Dependency                                             | Version  | License                                         | Purpose                             |
-| ------------------------------------------------------ | -------- | ----------------------------------------------- | ----------------------------------- |
-| [Remotion](https://remotion.dev/)                      | ^4.0.286 | MIT                                             | Video composition and rendering     |
-| [Whisper CPP](https://github.com/ggml-org/whisper.cpp) | v1.5.5   | MIT                                             | Speech-to-text for captions         |
-| [FFmpeg](https://ffmpeg.org/)                          | ^2.1.3   | LGPL/GPL                                        | Audio/video manipulation            |
-| [Kokoro.js](https://www.npmjs.com/package/kokoro-js)   | ^1.2.0   | MIT                                             | Text-to-speech generation           |
-| [Pexels API](https://www.pexels.com/api/)              | N/A      | [Pexels Terms](https://www.pexels.com/license/) | Background video sourcing           |
-| [Express](https://expressjs.com/)                      | ^5.1.0   | MIT                                             | API server framework                |
-| [MCP SDK](https://modelcontextprotocol.io/)            | ^1.9.0   | MIT                                             | Model Context Protocol support      |
-| [React](https://react.dev/)                            | ^19.1.0  | MIT                                             | UI components for video composition |
-| [Zod](https://zod.dev/)                                | ^3.24.2  | MIT                                             | Type validation                     |
+| Dependency                                             | Version  | License                                                                           | Purpose                         |
+| ------------------------------------------------------ | -------- | --------------------------------------------------------------------------------- | ------------------------------- |
+| [Remotion](https://remotion.dev/)                      | ^4.0.286 | [Remotion License](https://github.com/remotion-dev/remotion/blob/main/LICENSE.md) | Video composition and rendering |
+| [Whisper CPP](https://github.com/ggml-org/whisper.cpp) | v1.5.5   | MIT                                                                               | Speech-to-text for captions     |
+| [FFmpeg](https://ffmpeg.org/)                          | ^2.1.3   | LGPL/GPL                                                                          | Audio/video manipulation        |
+| [Kokoro.js](https://www.npmjs.com/package/kokoro-js)   | ^1.2.0   | MIT                                                                               | Text-to-speech generation       |
+| [Pexels API](https://www.pexels.com/api/)              | N/A      | [Pexels Terms](https://www.pexels.com/license/)                                   | Background videos               |
 
-## Prerequisites
+## How to contribute?
 
-- Node.js (v18 or higher)
-- FFmpeg installed on your system
-- Pexels API key
-- Docker (for containerized deployment)
-- NVIDIA GPU (optional, for improved performance)
-
-## Running the Project
-
-### Using NPX (recommended)
-
-The easiest way to run the project with GPU support out of the box:
-
-```bash
-PEXELS_API_KEY=your_pexels_api_key npx @ai-agents-az/shorts-creator
-```
-
-### Using Docker
-
-```bash
-# Standard run
-docker run -it --rm --name short-video-maker -p 3123:3123 \
-  -e PEXELS_API_KEY=your_pexels_api_key \
-  gyoridavid/shorts-creator
-
-# For NVIDIA GPUs, add --gpu=all
-docker run -it --rm --name shorts-video-maker -p 3123:3123 \
-  -e PEXELS_API_KEY=your_pexels_api_key --gpu=all \
-  gyoridavid/shorts-creator
-```
-
-## Local Development
-
+PRs are welcome.
 See the [CONTRIBUTING.md](CONTRIBUTING.md) file for instructions on setting up a local development environment.
 
 ## API Usage
@@ -140,11 +138,11 @@ Available MCP tools:
 
 ## License
 
-This project is licensed under the ISC License.
+This project is licensed under the [MIT License](LICENSE).
 
 ## Acknowledgments
 
-- [Remotion](https://remotion.dev/) for programmatic video generation
-- [Whisper](https://github.com/ggml-org/whisper.cpp) for speech-to-text
-- [Pexels](https://www.pexels.com/) for video content
-- [FFmpeg](https://ffmpeg.org/) for audio/video processing
+❤️ [Remotion](https://remotion.dev/) for programmatic video generation
+❤️ [Whisper](https://github.com/ggml-org/whisper.cpp) for speech-to-text
+❤️ [Pexels](https://www.pexels.com/) for video content
+❤️ [FFmpeg](https://ffmpeg.org/) for audio/video processing
