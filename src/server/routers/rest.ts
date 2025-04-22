@@ -28,7 +28,7 @@ export class APIRouter {
         try {
           const input = validateCreateShortInput(req.body);
 
-          const videoId = await this.shortCreator.addToQueue(
+          const videoId = this.shortCreator.addToQueue(
             input.scenes,
             input.config,
           );
