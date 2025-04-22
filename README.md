@@ -15,7 +15,7 @@ This repository was open-sourced by the [AI Agents A-Z Youtube Channel](https://
 The easiest way to run the project with GPU support out of the box:
 
 ```bash
-PEXELS_API_KEY= npx @ai-agents-az/shorts-creator
+LOG_LEVEL=debug PEXELS_API_KEY= npx short-video-maker
 ```
 
 ### Using Docker
