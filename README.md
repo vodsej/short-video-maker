@@ -32,6 +32,10 @@ docker run -it --rm --name shorts-video-maker -p 3123:3123 \
   gyoridavid/shorts-creator
 ```
 
+## Find help
+
+Join our [Discord](https://discord.gg/G7FJVJQ6RE) community for support and discussions.
+
 ## Environment Variables
 
 | Variable        | Description                                                                        |
