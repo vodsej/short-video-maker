@@ -154,3 +154,4 @@ This project is licensed under the [MIT License](LICENSE).
 - ❤️ [Whisper](https://github.com/ggml-org/whisper.cpp) for speech-to-text
 - ❤️ [Pexels](https://www.pexels.com/) for video content
 - ❤️ [FFmpeg](https://ffmpeg.org/) for audio/video processing
+- ❤️ [Kokoro](https://github.com/hexgrad/kokoro) for TTS
