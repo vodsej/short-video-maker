@@ -4,6 +4,11 @@ An open source automated video creation tool for generating short-form video con
 
 This repository was open-sourced by the [AI Agents A-Z Youtube Channel](https://www.youtube.com/channel/UCloXqLhp_KGhHBe1kwaL2Tg). We encourage you to check out the channel for more AI-related content and tutorials.
 
+## Hardware requirements
+
+- CPU: at least 2 cores are recommended
+- GPU: optional, makes the caption generation a lot faster (whisper.cpp) and the video rendering somewhat faster
+
 ## Watch the official video on how to generate videos with n8n
 
 [![Automated faceless video generation (n8n + MCP) with captions, background music, local and 100% free](https://img.youtube.com/vi/jzsQpn-AciM/0.jpg)](https://www.youtube.com/watch?v=jzsQpn-AciM)
