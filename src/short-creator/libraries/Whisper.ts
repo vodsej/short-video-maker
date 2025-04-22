@@ -4,35 +4,31 @@ import {
   transcribe,
 } from "@remotion/install-whisper-cpp";
 import fs from "fs-extra";
-
-import {
-  DOCKER,
-  TEMP_DIR_PATH,
-  WHISPER_INSTALL_PATH,
-  WHISPER_VERBOSE,
-} from "../../config";
-import type { Caption } from "../../types/shorts";
 import path from "path";
+
+import { Config } from "../../config";
+import type { Caption } from "../../types/shorts";
 import { logger } from "../../logger";
 
 export class Whisper {
-  static async init(): Promise<Whisper> {
-    fs.ensureDir(TEMP_DIR_PATH);
-    if (!DOCKER) {
+  constructor(private config: Config) {}
+
+  static async init(config: Config): Promise<Whisper> {
+    if (!config.runningInDocker) {
       await installWhisperCpp({
-        to: WHISPER_INSTALL_PATH,
+        to: config.whisperInstallPath,
         version: "1.5.5",
-        printOutput: WHISPER_VERBOSE,
+        printOutput: config.whisperVerbose,
       });
 
       await downloadWhisperModel({
         model: "medium.en",
-        folder: path.join(WHISPER_INSTALL_PATH, "models"),
-        printOutput: WHISPER_VERBOSE,
+        folder: path.join(config.whisperInstallPath, "models"),
+        printOutput: config.whisperVerbose,
       });
     }
 
-    return new Whisper();
+    return new Whisper(config);
   }
 
   // todo shall we extract it to a Caption class?
@@ -40,12 +36,12 @@ export class Whisper {
     logger.debug("Starting to transcribe audio");
     const { transcription } = await transcribe({
       model: "medium.en", // possible options: "tiny", "tiny.en", "base", "base.en", "small", "small.en", "medium", "medium.en", "large-v1", "large-v2", "large-v3", "large-v3-turbo"
-      whisperPath: WHISPER_INSTALL_PATH,
-      modelFolder: path.join(WHISPER_INSTALL_PATH, "models"),
+      whisperPath: this.config.whisperInstallPath,
+      modelFolder: path.join(this.config.whisperInstallPath, "models"),
       whisperCppVersion: "1.5.5",
       inputPath: audioPath,
       tokenLevelTimestamps: true,
-      printOutput: WHISPER_VERBOSE,
+      printOutput: this.config.whisperVerbose,
       onProgress: (progress) => {
         logger.debug(`Transcribing is ${progress} complete`);
       },

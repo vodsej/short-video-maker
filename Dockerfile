@@ -70,11 +70,11 @@ COPY --from=prod-deps /app/node_modules /app/node_modules
 COPY --from=build /app/dist /app/dist
 COPY package.json /app/
 
-# install kokoro, headless chrome
-RUN node dist/scripts/install.js
-
 # app configuration via environment variables
 ENV DATA_DIR_PATH=/app/data
 ENV DOCKER=true
+
+# install kokoro, headless chrome and ensure music files are present
+RUN node dist/scripts/install.js
 
 CMD ["pnpm", "start"]

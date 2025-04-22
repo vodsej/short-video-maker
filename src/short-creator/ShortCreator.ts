@@ -8,9 +8,9 @@ import { Remotion } from "./libraries/Remotion";
 import { Whisper } from "./libraries/Whisper";
 import { FFMpeg } from "./libraries/FFmpeg";
 import { PexelsAPI } from "./libraries/Pexels";
-import { VIDEOS_DIR_PATH, TEMP_DIR_PATH } from "../config";
+import { Config } from "../config";
 import { logger } from "../logger";
-import { musicConfig } from "./music";
+import { MusicManager } from "./music";
 import { type Music } from "../types/shorts";
 import type {
   SceneInput,
@@ -28,17 +28,17 @@ export class ShortCreator {
     id: string;
   }[] = [];
   constructor(
+    private config: Config,
     private remotion: Remotion,
     private kokoro: Kokoro,
     private whisper: Whisper,
     private ffmpeg: FFMpeg,
     private pexelsApi: PexelsAPI,
+    private musicManager: MusicManager,
   ) {}
 
-  // todo create a processing queue for the videos;
-
   public status(id: string): VideoStatus {
-    const videoPath = ShortCreator.getVideoPath(id);
+    const videoPath = this.getVideoPath(id);
     if (this.queue.find((item) => item.id === id)) {
       return "processing";
     }
@@ -63,7 +63,7 @@ export class ShortCreator {
   }
 
   private async processQueue(): Promise<void> {
-    // todo semaphore
+    // todo add a semaphore
     if (this.queue.length === 0) {
       return;
     }
@@ -109,7 +109,7 @@ export class ShortCreator {
         audioLength += config.paddingBack / 1000;
       }
 
-      const tempAudioPath = path.join(TEMP_DIR_PATH, `${cuid()}.wav`);
+      const tempAudioPath = path.join(this.config.tempDirPath, `${cuid()}.wav`);
       await this.ffmpeg.normalizeAudioForWhisper(audioStream, tempAudioPath);
       const captions = await this.whisper.CreateCaption(tempAudioPath);
       fs.removeSync(tempAudioPath);
@@ -156,18 +156,18 @@ export class ShortCreator {
     return videoId;
   }
 
-  public static getVideoPath(videoId: string): string {
-    return path.join(VIDEOS_DIR_PATH, `${videoId}.mp4`);
+  public getVideoPath(videoId: string): string {
+    return path.join(this.config.videosDirPath, `${videoId}.mp4`);
   }
 
   public deleteVideo(videoId: string): void {
-    const videoPath = ShortCreator.getVideoPath(videoId);
+    const videoPath = this.getVideoPath(videoId);
     fs.removeSync(videoPath);
     logger.debug({ videoId }, "Deleted video file");
   }
 
   public getVideo(videoId: string): Buffer {
-    const videoPath = ShortCreator.getVideoPath(videoId);
+    const videoPath = this.getVideoPath(videoId);
     if (!fs.existsSync(videoPath)) {
       throw new Error(`Video ${videoId} not found`);
     }
@@ -175,7 +175,7 @@ export class ShortCreator {
   }
 
   private findMusic(videoDuration: number, tag?: MusicMoodEnum): Music {
-    const musicFiles = musicConfig.filter((music) => {
+    const musicFiles = this.musicManager.musicList().filter((music) => {
       if (tag) {
         return music.mood === tag;
       }
@@ -184,9 +184,9 @@ export class ShortCreator {
     return musicFiles[Math.floor(Math.random() * musicFiles.length)];
   }
 
-  public static ListAvailableMusicTags(): MusicTag[] {
+  public ListAvailableMusicTags(): MusicTag[] {
     const tags = new Set<MusicTag>();
-    musicConfig.forEach((music) => {
+    this.musicManager.musicList().forEach((music) => {
       tags.add(music.mood as MusicTag);
     });
     return Array.from(tags.values());

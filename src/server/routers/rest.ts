@@ -83,7 +83,7 @@ export class APIRouter {
     this.router.get(
       "/music-tags",
       (req: ExpressRequest, res: ExpressResponse) => {
-        res.status(200).json(ShortCreator.ListAvailableMusicTags());
+        res.status(200).json(this.shortCreator.ListAvailableMusicTags());
       },
     );
 
