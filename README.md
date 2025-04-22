@@ -29,12 +29,12 @@ LOG_LEVEL=debug PEXELS_API_KEY= npx short-video-maker
 # Standard run
 docker run -it --rm --name short-video-maker -p 3123:3123 \
   -e PEXELS_API_KEY=your_pexels_api_key \
-  gyoridavid/shorts-creator
+  gyoridavid/short-video-maker
 
-# For NVIDIA GPUs, add --gpu=all
+# For NVIDIA GPUs, add --gpus=all
 docker run -it --rm --name shorts-video-maker -p 3123:3123 \
-  -e PEXELS_API_KEY= --gpu=all \
-  gyoridavid/shorts-creator
+  -e PEXELS_API_KEY= --gpus=all \
+  gyoridavid/short-video-maker
 ```
 
 ## Find help
