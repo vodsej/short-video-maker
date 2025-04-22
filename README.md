@@ -142,7 +142,7 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## Acknowledgments
 
-❤️ [Remotion](https://remotion.dev/) for programmatic video generation
-❤️ [Whisper](https://github.com/ggml-org/whisper.cpp) for speech-to-text
-❤️ [Pexels](https://www.pexels.com/) for video content
-❤️ [FFmpeg](https://ffmpeg.org/) for audio/video processing
+- ❤️ [Remotion](https://remotion.dev/) for programmatic video generation
+- ❤️ [Whisper](https://github.com/ggml-org/whisper.cpp) for speech-to-text
+- ❤️ [Pexels](https://www.pexels.com/) for video content
+- ❤️ [FFmpeg](https://ffmpeg.org/) for audio/video processing
