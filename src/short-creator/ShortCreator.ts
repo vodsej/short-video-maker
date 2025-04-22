@@ -97,9 +97,17 @@ export class ShortCreator {
     const scenes: Scene[] = [];
     let totalDuration = 0;
     const excludeVideoIds = [];
+
+    let index = 0;
     for (const scene of inputScenes) {
       const audio = await this.kokoro.generate(scene.text, "af_heart");
-      const { audioLength, audio: audioStream } = audio;
+      let { audioLength } = audio;
+      const { audio: audioStream } = audio;
+
+      // add the paddingBack in seconds to the last scene
+      if (index + 1 === inputScenes.length && config.paddingBack) {
+        audioLength += config.paddingBack / 1000;
+      }
 
       const tempAudioPath = path.join(TEMP_DIR_PATH, `${cuid()}.wav`);
       await this.ffmpeg.normalizeAudioForWhisper(audioStream, tempAudioPath);
@@ -124,6 +132,7 @@ export class ShortCreator {
       });
 
       totalDuration += audioLength;
+      index++;
     }
     if (config.paddingBack) {
       totalDuration += config.paddingBack / 1000;

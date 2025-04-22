@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { ensureBrowser } from "@remotion/renderer";
+
 import { Kokoro } from "./short-creator/libraries/Kokoro";
 import { Remotion } from "./short-creator/libraries/Remotion";
 import { Whisper } from "./short-creator/libraries/Whisper";
@@ -10,9 +12,10 @@ import { logger } from "./logger";
 import { Server } from "./server/server";
 
 async function main() {
-  // todo ensure chrome
+  // ensure dependencies are installed
   logger.debug("initializing remotion");
   const remotion = await Remotion.init();
+  await ensureBrowser();
   logger.debug("initializing kokoro");
   const kokoro = await Kokoro.init();
   logger.debug("initializing whisper");

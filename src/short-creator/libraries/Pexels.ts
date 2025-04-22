@@ -16,6 +16,10 @@ export class PexelsAPI {
     if (!this.API_KEY) {
       throw new Error("API key not set");
     }
+    logger.debug(
+      { searchTerm, minDurationSeconds },
+      "Searching for video in Pexels API",
+    );
     const headers = new Headers();
     headers.append("Authorization", this.API_KEY);
     const response = await fetch(
@@ -61,7 +65,8 @@ export class PexelsAPI {
 
         // calculate the real duration of the video by converting the FPS to 25
         const fps = video.video_files[0].fps;
-        const duration = video.duration * (fps / 25);
+        const duration =
+          fps < 25 ? video.duration * (fps / 25) : video.duration;
 
         if (duration >= minDurationSeconds + durationBufferSeconds) {
           for (const file of video.video_files) {
