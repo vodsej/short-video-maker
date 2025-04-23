@@ -1,15 +1,12 @@
 import { ensureBrowser } from "@remotion/renderer";
 
 import { logger } from "../logger";
-import { Kokoro } from "../short-creator/libraries/Kokoro";
 import { MusicManager } from "../short-creator/music";
 import { Config } from "../config";
 
 // runs in docker
 export async function install() {
   logger.info("Installing dependencies...");
-  logger.info("Installing Kokoro...");
-  await Kokoro.init();
   logger.info("Installing browser shell...");
   await ensureBrowser();
   logger.info("Installing dependencies complete");

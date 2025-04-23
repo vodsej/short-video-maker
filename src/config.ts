@@ -29,6 +29,7 @@ export class Config {
   public packageDirPath: string;
   public musicDirPath: string;
   public pexelsApiKey: string;
+  public elevenLabsApiKey: string;
   public logLevel: pino.Level;
   public whisperVerbose: boolean;
   public port: number;
@@ -55,6 +56,7 @@ export class Config {
     this.musicDirPath = path.join(this.staticDirPath, "music");
 
     this.pexelsApiKey = process.env.PEXELS_API_KEY as string;
+    this.elevenLabsApiKey = process.env.ELEVENLABS_API_KEY as string;
     this.logLevel = (process.env.LOG_LEVEL ?? defaultLogLevel) as pino.Level;
     this.whisperVerbose = process.env.WHISPER_VERBOSE === "true";
     this.port = process.env.PORT ? parseInt(process.env.PORT) : defaultPort;

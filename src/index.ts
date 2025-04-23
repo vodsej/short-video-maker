@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Kokoro } from "./short-creator/libraries/Kokoro";
+import { Eleven } from "./short-creator/libraries/Eleven";
 import { Remotion } from "./short-creator/libraries/Remotion";
 import { Whisper } from "./short-creator/libraries/Whisper";
 import { FFMpeg } from "./short-creator/libraries/FFmpeg";
@@ -37,8 +37,8 @@ async function main() {
 
   logger.debug("initializing remotion");
   const remotion = await Remotion.init(config);
-  logger.debug("initializing kokoro");
-  const kokoro = await Kokoro.init();
+  logger.debug("initializing eleven labs");
+  const eleven = await Eleven.init(config.elevenLabsApiKey);
   logger.debug("initializing whisper");
   const whisper = await Whisper.init(config);
   logger.debug("initializing ffmpeg");
@@ -49,7 +49,7 @@ async function main() {
   const shortCreator = new ShortCreator(
     config,
     remotion,
-    kokoro,
+    eleven,
     whisper,
     ffmpeg,
     pexelsApi,

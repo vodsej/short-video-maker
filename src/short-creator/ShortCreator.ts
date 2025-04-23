@@ -3,7 +3,7 @@ import fs from "fs-extra";
 import cuid from "cuid";
 import path from "path";
 
-import { Kokoro } from "./libraries/Kokoro";
+import { Eleven } from "./libraries/Eleven";
 import { Remotion } from "./libraries/Remotion";
 import { Whisper } from "./libraries/Whisper";
 import { FFMpeg } from "./libraries/FFmpeg";
@@ -30,7 +30,7 @@ export class ShortCreator {
   constructor(
     private config: Config,
     private remotion: Remotion,
-    private kokoro: Kokoro,
+    private eleven: Eleven,
     private whisper: Whisper,
     private ffmpeg: FFMpeg,
     private pexelsApi: PexelsAPI,
@@ -100,7 +100,9 @@ export class ShortCreator {
 
     let index = 0;
     for (const scene of inputScenes) {
-      const audio = await this.kokoro.generate(scene.text, "af_heart");
+      logger.debug("Creating audio for scene...");
+      const audio = await this.eleven.generate(scene.text);
+      logger.debug("Audio created.");
       let { audioLength } = audio;
       const { audio: audioStream } = audio;
 

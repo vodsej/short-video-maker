@@ -22,7 +22,7 @@ export class Whisper {
       });
 
       await downloadWhisperModel({
-        model: "medium.en",
+        model: "medium",
         folder: path.join(config.whisperInstallPath, "models"),
         printOutput: config.whisperVerbose,
       });
@@ -35,7 +35,7 @@ export class Whisper {
   async CreateCaption(audioPath: string): Promise<Caption[]> {
     logger.debug("Starting to transcribe audio");
     const { transcription } = await transcribe({
-      model: "medium.en", // possible options: "tiny", "tiny.en", "base", "base.en", "small", "small.en", "medium", "medium.en", "large-v1", "large-v2", "large-v3", "large-v3-turbo"
+      model: "medium", // possible options: "tiny", "tiny.en", "base", "base.en", "small", "small.en", "medium", "medium.en", "large-v1", "large-v2", "large-v3", "large-v3-turbo"
       whisperPath: this.config.whisperInstallPath,
       modelFolder: path.join(this.config.whisperInstallPath, "models"),
       whisperCppVersion: "1.5.5",
