@@ -42,6 +42,8 @@ export class Whisper {
       inputPath: audioPath,
       tokenLevelTimestamps: true,
       printOutput: this.config.whisperVerbose,
+      translateToEnglish: false,
+      language: "cs",
       onProgress: (progress) => {
         logger.debug(`Transcribing is ${progress} complete`);
       },
