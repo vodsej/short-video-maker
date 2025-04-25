@@ -66,9 +66,11 @@ export class Remotion {
       outputLocation,
       chromiumOptions: {
         enableMultiProcessOnLinux: true,
+        gl: "vulkan",
       },
       inputProps: data,
       onProgress,
+      hardwareAcceleration: "if-possible",
     });
 
     logger.debug(
